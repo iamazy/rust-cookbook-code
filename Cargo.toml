@@ -8,3 +8,7 @@ edition = "2018"
 
 [dependencies]
 rand = "0.7"
+flate2 = "1.0"
+tar = "0.4"
+crossbeam="0.7"
+lazy_static = "1.4.0"

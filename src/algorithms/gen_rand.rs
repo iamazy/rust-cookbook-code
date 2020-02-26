@@ -60,6 +60,8 @@ impl Distribution<Point> for Standard {
 
 pub fn gen_rand_num_of_custom_type() {
     let mut rng = rand::thread_rng();
+
+    // 指定返回值类型的两种方式
     let rand_tuple = rng.gen::<(i32, bool, f64)>();
     let rand_point: Point = rng.gen();
     println!("Random tuple: {:?}", rand_tuple);
@@ -68,11 +70,11 @@ pub fn gen_rand_num_of_custom_type() {
 
 pub fn gen_rand_password() {
     let rand_str: String = rand::thread_rng()
-        .sample_iter(&Alphanumeric)
+        .sample_iter(Alphanumeric)
         .take(30)
         .collect();
 
-    println!("{}", rand_str);
+    println!("{:?}", rand_str);
 }
 
 pub fn gen_rand_password_from_user_defined() {
