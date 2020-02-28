@@ -42,4 +42,5 @@ fn main() {
     println!("-------------------------------");
     crypt::hashing::calculate_sha256_digest_of_file().unwrap();
     crypt::hashing::sign_verify_message_with_hmac_digest().unwrap();
+    crypt::encryption::salt_hash_password_with_pbkdf2();
 }
