@@ -1,6 +1,7 @@
 extern crate rand;
 
-use rand::distributions::{Alphanumeric, Distribution, Normal, Standard, Uniform};
+use rand::distributions::{Alphanumeric, Standard, Uniform};
+use rand_distr::{Normal,Distribution};
 use rand::Rng;
 
 pub fn gen_rand_num() {
@@ -37,7 +38,7 @@ pub fn gen_rand_num_in_range_faster() {
 
 pub fn gen_rand_num_with_distribution() {
     let mut rng = rand::thread_rng();
-    let normal = Normal::new(2.0, 3.0);
+    let normal = Normal::new(2.0, 3.0).unwrap();
     let v = normal.sample(&mut rng);
     println!("{} is from a N(2,9) distribution", v);
 }

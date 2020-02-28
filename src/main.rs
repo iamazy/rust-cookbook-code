@@ -1,6 +1,7 @@
 mod algorithms;
 mod compress;
 mod concurrency;
+mod crypt;
 
 fn main() {
     algorithms::gen_rand::gen_rand_num();
@@ -37,4 +38,8 @@ fn main() {
     concurrency::parallel_tasks::find_item_in_parallel();
     concurrency::parallel_tasks::sort_vec_parallel();
     concurrency::parallel_tasks::map_reduce_parallel();
+
+    println!("-------------------------------");
+    crypt::hashing::calculate_sha256_digest_of_file().unwrap();
+    crypt::hashing::sign_verify_message_with_hmac_digest().unwrap();
 }

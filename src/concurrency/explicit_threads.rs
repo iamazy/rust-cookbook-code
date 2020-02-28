@@ -20,6 +20,7 @@ pub fn find_max(arr: &[i32]) -> Option<i32> {
     if arr.len() <= THREADHOLD {
         return arr.iter().cloned().max();
     }
+
     let mid = arr.len() / 2;
     let (left, right) = arr.split_at(mid);
 
