@@ -1,8 +1,8 @@
 extern crate rand;
 
 use rand::distributions::{Alphanumeric, Standard, Uniform};
-use rand_distr::{Normal,Distribution};
 use rand::Rng;
+use rand_distr::{Distribution, Normal};
 
 pub fn gen_rand_num() {
     let mut rng = rand::thread_rng();
