@@ -21,15 +21,16 @@ fn main() -> io::Result<()> {
 
     // Register our socket with the token defined above and an interest in
     // being `READABLE`
-    poll.registry().register(&mut socket,UDP_SOCKET,Interest::READABLE)?;
-    
+    poll.registry()
+        .register(&mut socket, UDP_SOCKET, Interest::READABLE)?;
+
     println!("You can connect to the server using `nc`:");
     println!("$ nc -u 127.0.0.1 9000");
     println!("Anything you type will be echoed back to you.");
 
     // Initialize a buffer for the UDP packet. We use the maximum size of a UDP packet,
     // which is the maximum value of 16 a bit integer.
-    let mut buf = [0; 1<<16];
+    let mut buf = [0; 1 << 16];
 
     loop {
         //Poll to check if we have events waiting for us.
@@ -43,13 +44,13 @@ fn main() -> io::Result<()> {
                 UDP_SOCKET => loop {
                     // In this loop we receive all packets queued for the socket.
                     match socket.recv_from(&mut buf) {
-                        Ok((packet_size,source_address)) => {
+                        Ok((packet_size, source_address)) => {
                             // Echo the data
-                            socket.send_to(&buf[..packet_size],source_address)?;
+                            socket.send_to(&buf[..packet_size], source_address)?;
                         }
                         Err(e) if e.kind() == io::ErrorKind::WouldBlock => {
                             // If we get a `WouldBlock` error we know our socket
-                            // has no more packets queued, so we can return to polling and wait for some more. 
+                            // has no more packets queued, so we can return to polling and wait for some more.
                             break;
                         }
                         Err(e) => {
@@ -61,7 +62,7 @@ fn main() -> io::Result<()> {
                 _ => {
                     // This should never happen as we only registered our `UdpSocket` using
                     // the `UDP_SOCKET` token, buf if it ever does we'll log it
-                    warn!("Got event for unexpected token: {:?}",event);
+                    warn!("Got event for unexpected token: {:?}", event);
                 }
             }
         }
