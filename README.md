@@ -1,4 +1,5 @@
 # rust-cookbook-code
 
-[rust-cookbook](https://github.com/rust-lang-nursery/rust-cookbook)  
-[exercism-rust](https://github.com/exercism/rust)
+[rust-cookbook](https://github.com/rust-lang-nursery/rust-cookbook)    
+[exercism-rust](https://github.com/exercism/rust)  
+[rust-learning](https://github.com/ctjhoa/rust-learning)  
