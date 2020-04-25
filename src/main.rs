@@ -7,7 +7,7 @@ mod exercises;
 mod raft;
 
 fn main() {
-    main_raft();
+    main_func();
 }
 
 fn main_raft() {
