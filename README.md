@@ -7,3 +7,4 @@
 [async-book](https://github.com/rust-lang/async-book)  
 [rust-reference](https://github.com/rust-lang/reference)  
 [rust-by-example](https://github.com/rust-lang/rust-by-example)  
+[Rustonomicon](https://doc.rust-lang.org/nomicon/index.html)
