@@ -1,5 +1,6 @@
 # rust-cookbook-code
 
+[rust-standard-lib](https://doc.rust-lang.org/std)  
 [rust-cookbook](https://github.com/rust-lang-nursery/rust-cookbook)  
 [exercism-rust](https://github.com/exercism/rust)  
 [rust-learning](https://github.com/ctjhoa/rust-learning)  
@@ -8,6 +9,7 @@
 [rust-reference](https://github.com/rust-lang/reference)  
 [rust-by-example](https://github.com/rust-lang/rust-by-example)  
 [write a os in rust](https://os.phil-opp.com/)  
-[Rustonomicon](https://doc.rust-lang.org/nomicon/index.html)  
+[rust死灵书](https://doc.rust-lang.org/nomicon/index.html)  
 [to many list](https://github.com/rust-unofficial/too-many-lists)  
-[termion](https://github.com/redox-os/termion)
+[termion](https://github.com/redox-os/termion)  
+[rust小宏书](http://blog.luxlyu.com/tlborm-chinese/book/index.html)  
