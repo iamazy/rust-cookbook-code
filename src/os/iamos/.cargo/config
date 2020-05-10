@@ -1,0 +1,6 @@
+[build]
+target = "x86_64-iamos.json"
+
+# execute `cargo xrun` to run qemu
+[target.'cfg(target_os = "none")']
+runner = "bootimage runner"
