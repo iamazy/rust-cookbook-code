@@ -2,7 +2,7 @@ use std::sync::mpsc::channel;
 use std::thread;
 
 fn main() {
-    // 1. simple usage
+    // 1. Simple usage
     // Create a simple streaming channel
     let (tx, rx) = channel();
     thread::spawn(move || {
@@ -11,7 +11,7 @@ fn main() {
 
     println!("received: {:?}", rx.recv().unwrap());
 
-    // 2. shared usage
+    // 2. Shared usage
     // Create a shared channel that can be sent along from many threads
     // where tx is the sending half (tx for transmission), and rx is the
     // receiving half (rx for receiving)
@@ -28,12 +28,12 @@ fn main() {
         println!("{}", j);
     }
 
-    // 3. propagating panics
+    // 3. Propagating panics
     let (tx, rx) = channel::<i32>();
     drop(tx);
     println!("{:?}", rx.recv().is_err());
 
-    // synchronous channel
+    // 4. Synchronous channel
     use std::sync::mpsc::sync_channel;
 
     let (tx, rx) = sync_channel::<i32>(0);
