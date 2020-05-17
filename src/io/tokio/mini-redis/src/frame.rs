@@ -4,6 +4,7 @@ use std::fmt;
 use std::io::Cursor;
 use std::num::TryFromIntError;
 use std::string::FromUtf8Error;
+use std::fmt::Pointer;
 
 #[derive(Clone, Debug)]
 pub(crate) enum Frame {
