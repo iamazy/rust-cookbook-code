@@ -5,32 +5,35 @@ use bytes::Bytes;
 use std::time::Duration;
 use tracing::{debug, instrument};
 
-/// Set `key` to hold the string `value`
+/// Set `key` to hold the string `value`.
 ///
 /// If `key` already holds a value, it is overwritten, regardless of its type.
-/// Any previous time to live associated with key is discarded on successful Set
-/// operation
+/// Any previous time to live associated with the key is discarded on successful
+/// SET operation.
 ///
 /// # Options
+///
 /// Currently, the following options are supported:
 ///
 /// * EX `seconds` -- Set the specified expire time, in seconds.
-/// * PX `millisenconds` -- Set the specified expire time, in milliseconds
+/// * PX `milliseconds` -- Set the specified expire time, in milliseconds.
 #[derive(Debug)]
 pub struct Set {
-    /// the loopup key
+    /// the lookup key
     key: String,
+
     /// the value to be stored
     value: Bytes,
-    /// when to expire the key
+
+    /// When to expire the key
     expire: Option<Duration>,
 }
 
 impl Set {
-    /// Create a new `Set` command which sets `key` to `value`
+    /// Create a new `Set` command which sets `key` to `value`.
     ///
     /// If `expire` is `Some`, the value should expire after the specified
-    /// duration
+    /// duration.
     pub(crate) fn new(key: impl ToString, value: Bytes, expire: Option<Duration>) -> Set {
         Set {
             key: key.to_string(),
@@ -39,70 +42,76 @@ impl Set {
         }
     }
 
-    /// Parse a `Set` instance from a received frame
+    /// Parse a `Set` instance from a received frame.
     ///
-    /// The `Parse` argument provides a cursor-like API to read fields from
-    /// the `Frame`. At this point, the entire frame has already been reveived
-    /// from the socket.
+    /// The `Parse` argument provides a cursor-like API to read fields from the
+    /// `Frame`. At this point, the entire frame has already been received from
+    /// the socket.
     ///
-    /// The `SET` string has already been consumed
+    /// The `SET` string has already been consumed.
     ///
     /// # Returns
     ///
-    /// Returns the `Set` value on success. If the frame is malformed. `Err` is returned
+    /// Returns the `Set` value on success. If the frame is malformed, `Err` is
+    /// returned.
     ///
     /// # Format
     ///
-    /// Expects an array frame containing at least 3 entries
+    /// Expects an array frame containing at least 3 entries.
     ///
     /// ```text
     /// SET key value [EX seconds|PX milliseconds]
     /// ```
-    pub(crate) fn parse_frame(parse: &mut Parse) -> crate::Result<Set> {
+    pub(crate) fn parse_frames(parse: &mut Parse) -> crate::Result<Set> {
         use ParseError::EndOfStream;
 
         // Read the key to set. This is a required field
         let key = parse.next_string()?;
 
-        // Read the value to set. This is a required field
+        // Read the value to set. This is a required field.
         let value = parse.next_bytes()?;
 
-        // The expiration is optional. If nothing else follows, then it is `None`
+        // The expiration is optional. If nothing else follows, then it is
+        // `None`.
         let mut expire = None;
 
-        // Attempt to parse another string
+        // Attempt to parse another string.
         match parse.next_string() {
             Ok(s) if s == "EX" => {
-                // An expiration is specified in seconds. The next value is an integer.
+                // An expiration is specified in seconds. The next value is an
+                // integer.
                 let secs = parse.next_int()?;
                 expire = Some(Duration::from_secs(secs));
             }
             Ok(s) if s == "PX" => {
-                // An expiration is specified in milliseconds. The next value is an integer
+                // An expiration is specified in milliseconds. The next value is
+                // an integer.
                 let ms = parse.next_int()?;
                 expire = Some(Duration::from_millis(ms));
             }
-
-            // Currently, mini-redis does not support any of the other SET options. An error
-            // here results in the connection being terminated. Other connections will continue
-            // to operate normally
+            // Currently, mini-redis does not support any of the other SET
+            // options. An error here results in the connection being
+            // terminated. Other connections will continue to operate normally.
             Ok(_) => return Err("currently `SET` only supports the expiration option".into()),
-            // The `EndOfStream` error inndicates there is no further data to parse. In this case,
-            // it is a normal run times situation and indicates there are no specified `SET` options.
+            // The `EndOfStream` error indicates there is no further data to
+            // parse. In this case, it is a normal run time situation and
+            // indicates there are no specified `SET` options.
             Err(EndOfStream) => {}
-            // All other errors are bubbled up, resulting in the connection being terminated
+            // All other errors are bubbled up, resulting in the connection
+            // being terminated.
             Err(err) => return Err(err.into()),
         }
+
         Ok(Set { key, value, expire })
     }
 
-    /// Apply the `GET` command to the specified `Db` instance
-    /// 
-    /// The reponse is written to `dst`. This is called by the server in
-    /// order to execute a received command
+    /// Apply the `Get` command to the specified `Db` instace.
+    ///
+    /// The response is written to `dst`. This is called by the server in order
+    /// to execute a received command.
     #[instrument(skip(self, db, dst))]
     pub(crate) async fn apply(self, db: &Db, dst: &mut Connection) -> crate::Result<()> {
-        // Set the value in the shared database state
+        // Set the value in the shared database state.
         db.set(self.key, self.value, self.expire);
 
         // Create a success response and write it to `dst`.
@@ -113,10 +122,10 @@ impl Set {
         Ok(())
     }
 
-    /// Converts the command into an equivalent `Frame`
-    /// 
-    /// This is called by the client when encoding a `Set` command to
-    /// send to the server
+    /// Converts the command into an equivalent `Frame`.
+    ///
+    /// This is called by the client when encoding a `Set` command to send to
+    /// the server.
     pub(crate) fn into_frame(self) -> Frame {
         let mut frame = Frame::array();
         frame.push_bulk(Bytes::from("set".as_bytes()));
