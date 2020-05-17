@@ -10,6 +10,6 @@
 [rust-by-example](https://github.com/rust-lang/rust-by-example)  
 [write a os in rust](https://os.phil-opp.com/)  
 [rust死灵书](https://doc.rust-lang.org/nomicon/index.html)  
-[to many list](https://github.com/rust-unofficial/too-many-lists)  
+[too many list](https://github.com/rust-unofficial/too-many-lists)  
 [termion](https://github.com/redox-os/termion)  
 [rust小宏书](http://blog.luxlyu.com/tlborm-chinese/book/index.html)  
