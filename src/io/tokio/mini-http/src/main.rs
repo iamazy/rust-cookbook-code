@@ -36,12 +36,10 @@ fn process(mut stream: TcpStream) -> io::Result<()> {
 
 
 fn main() {
-    let listener = TcpListener::bind("0.0.0.0:8080")?;
-    let mut incoming = listener.incoming();
+    let listener = TcpListener::bind("0.0.0.0:8080");
+    let mut incoming = listener.unwrap().incoming();
 
     while let Some(stream) = incoming.next() {
-        let stream = stream?;
-        thread::spawn(||process(stream));
+        thread::spawn(||process(stream.unwrap()));
     }
-    Ok(())
 }
