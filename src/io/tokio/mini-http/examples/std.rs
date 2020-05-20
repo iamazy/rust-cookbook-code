@@ -1,5 +1,3 @@
-mod request;
-mod response;
 use std::io;
 use std::io::prelude::*;
 use std::net::{TcpListener, TcpStream};
@@ -7,8 +5,8 @@ use std::thread;
 
 use bytes::BytesMut;
 
-use request::Request;
-use response::Response;
+use mini_http::request::Request;
+use mini_http::response::Response;
 
 
 fn process(mut stream: TcpStream) -> io::Result<()> {
@@ -37,7 +35,8 @@ fn process(mut stream: TcpStream) -> io::Result<()> {
 
 fn main() {
     let listener = TcpListener::bind("0.0.0.0:8080");
-    let mut incoming = listener.unwrap().incoming();
+    let listener = listener.unwrap();
+    let mut incoming = listener.incoming();
 
     while let Some(stream) = incoming.next() {
         thread::spawn(||process(stream.unwrap()));

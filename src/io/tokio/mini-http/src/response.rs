@@ -1,4 +1,3 @@
-
 use std::fmt::{self, Write};
 use bytes::{BufMut, BytesMut};
 
@@ -72,13 +71,7 @@ impl Response {
 }
 
 fn push(buf: &mut BytesMut, data: &[u8]) {
-    buf.reserve(data.len());
-    unsafe {
-        let mut data_buf = BytesMut::with_capacity(data.len());
-        data_buf.extend_from_slice(data);
-        buf.bytes_mut()[..data.len()].copy_from_slice(data_buf.bytes_mut());
-        buf.advance_mut(data.len());
-    }
+    buf.extend_from_slice(data);
 }
 
 
