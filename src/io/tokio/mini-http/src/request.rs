@@ -57,18 +57,18 @@ impl Request {
                 httparse::Status::Partial => return Ok(None)
             };
 
-            let toSlice = |a: &[u8]| {
+            let to_slice = |a: &[u8]| {
                 let start = a.as_ptr() as usize - buf.as_ptr() as usize;
                 assert!(start < buf.len());
                 (start, start + a.len())
             };
 
             (
-                toSlice(r.method.unwrap().as_bytes()),
-                toSlice(r.path.unwrap().as_bytes()),
+                to_slice(r.method.unwrap().as_bytes()),
+                to_slice(r.path.unwrap().as_bytes()),
                 r.version.unwrap(),
                 r.headers.iter()
-                    .map(|h| (toSlice(h.name.as_bytes()), toSlice(h.value)))
+                    .map(|h| (to_slice(h.name.as_bytes()), to_slice(h.value)))
                     .collect(),
                 amt,
             )
