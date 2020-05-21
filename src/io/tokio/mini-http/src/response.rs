@@ -1,5 +1,5 @@
 use std::fmt::{self, Write};
-use bytes::{BufMut, BytesMut};
+use bytes::BytesMut;
 
 pub struct Response {
     headers: Vec<(String, String)>,

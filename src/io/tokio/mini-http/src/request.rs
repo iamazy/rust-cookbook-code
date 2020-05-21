@@ -1,25 +1,25 @@
-use std::{fmt, io, slice, str};
 use bytes::BytesMut;
 use httparse;
 use std::fmt::Formatter;
+use std::{fmt, io, slice, str};
 
 pub struct Request {
     method: Slice,
     path: Slice,
     version: u8,
     headers: Vec<(Slice, Slice)>,
-    data: BytesMut
+    data: BytesMut,
 }
 
 type Slice = (usize, usize);
 
 pub struct RequestHeaders<'req> {
     headers: slice::Iter<'req, (Slice, Slice)>,
-    req: &'req Request
+    req: &'req Request,
 }
 
 impl Request {
-    pub fn method(&self) -> &str{
+    pub fn method(&self) -> &str {
         str::from_utf8(self.slice(&self.method)).unwrap()
     }
 
@@ -43,18 +43,17 @@ impl Request {
     }
 
     pub fn decode(buf: &mut BytesMut) -> io::Result<Option<Request>> {
-
         let (method, path, version, headers, amt) = {
             let mut headers = [httparse::EMPTY_HEADER; 16];
             let mut r = httparse::Request::new(&mut headers);
             let status = r.parse(buf).map_err(|e| {
                 let msg = format!("failed to parse http request: {:?}", e);
-                io::Error::new(io::ErrorKind::Other, msg)
+                return io::Error::new(io::ErrorKind::Other, msg);
             })?;
 
             let amt = match status {
                 httparse::Status::Complete(amt) => amt,
-                httparse::Status::Partial => return Ok(None)
+                httparse::Status::Partial => return Ok(None),
             };
 
             let to_slice = |a: &[u8]| {
@@ -67,7 +66,8 @@ impl Request {
                 to_slice(r.method.unwrap().as_bytes()),
                 to_slice(r.path.unwrap().as_bytes()),
                 r.version.unwrap(),
-                r.headers.iter()
+                r.headers
+                    .iter()
                     .map(|h| (to_slice(h.name.as_bytes()), to_slice(h.value)))
                     .collect(),
                 amt,
@@ -79,8 +79,9 @@ impl Request {
             path,
             version,
             headers,
-            data: buf.split_to(amt)
-        }.into())
+            data: buf.split_to(amt),
+        }
+        .into())
     }
 }
 
@@ -94,7 +95,7 @@ impl<'req> Iterator for RequestHeaders<'req> {
     type Item = (&'req str, &'req [u8]);
 
     fn next(&mut self) -> Option<Self::Item> {
-        self.headers.next().map(|&(ref a,ref b)| {
+        self.headers.next().map(|&(ref a, ref b)| {
             let a = self.req.slice(a);
             let b = self.req.slice(b);
             (str::from_utf8(a).unwrap(), b)

@@ -8,7 +8,6 @@ use bytes::BytesMut;
 use mini_http::request::Request;
 use mini_http::response::Response;
 
-
 fn process(mut stream: TcpStream) -> io::Result<()> {
     let mut v = vec![0u8; 16 * 1024];
     let mut input = BytesMut::new();
@@ -22,7 +21,7 @@ fn process(mut stream: TcpStream) -> io::Result<()> {
 
         while let Some(_) = Request::decode(&mut input)? {
             Response::new()
-                .header("Content-Type","text/plain")
+                .header("Content-Type", "text/plain")
                 .body("Hello World")
                 .encode(&mut output);
 
@@ -32,13 +31,12 @@ fn process(mut stream: TcpStream) -> io::Result<()> {
     }
 }
 
-
 fn main() {
     let listener = TcpListener::bind("0.0.0.0:8080");
     let listener = listener.unwrap();
     let mut incoming = listener.incoming();
 
     while let Some(stream) = incoming.next() {
-        thread::spawn(||process(stream.unwrap()));
+        thread::spawn(|| process(stream.unwrap()));
     }
 }
