@@ -24,10 +24,6 @@ fn main_func() {
     algorithms::gen_rand::gen_rand_password_from_user_defined();
 
     println!("-------------------------------");
-    algorithms::sort_vec::sort_int_vec();
-    algorithms::sort_vec::sort_float_vec();
-
-    println!("-------------------------------");
     // 耗时
     //compress::decompress_tarball().unwrap();
     compress::compress_dir().unwrap();
