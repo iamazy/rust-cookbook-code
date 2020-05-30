@@ -2,11 +2,10 @@ use std::borrow::Borrow;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::mem;
-use std::ptr::hash;
-use std::intrinsics::breakpoint;
 
 const INITIAL_NBUCKETS: usize =1;
 
+#[derive(Debug)]
 pub struct HashMap<K,V> {
     buckets: Vec<Vec<(K,V)>>,
     items: usize
@@ -126,7 +125,7 @@ impl<K,V> HashMap<K,V> where K: Hash + Eq {
             .map(|&(_, ref v)|v)
     }
 
-    pub fn contains_key<Q>(&self, key: Q) -> bool
+    pub fn contains_key<Q>(&self, key: &Q) -> bool
         where K: Borrow<Q>, Q: Hash + Eq + ?Sized
     {
         self.get(key).is_some()
@@ -135,7 +134,7 @@ impl<K,V> HashMap<K,V> where K: Hash + Eq {
     pub fn remove<Q>(&mut self, key: &Q) -> Option<V>
         where K: Borrow<Q>, Q: Hash + Eq + ?Sized
     {
-        let bucket = self.buckets(key)?;
+        let bucket = self.bucket(key)?;
         let bucket = &mut self.buckets[bucket];
         let i = bucket
             .iter()
@@ -249,6 +248,7 @@ impl<K, V> IntoIterator for HashMap<K, V> {
 }
 
 use std::iter::FromIterator;
+
 impl<K, V> FromIterator<(K, V)> for HashMap<K, V>
     where K: Hash + Eq
 {
@@ -260,5 +260,25 @@ impl<K, V> FromIterator<(K, V)> for HashMap<K, V>
             map.insert(k, v);
         }
         map
+    }
+}
+
+
+
+#[test]
+fn test_hash_map() {
+
+    let mut map = HashMap::<&str,_>::new();
+    map.insert("name", "iamazy");
+    println!("{:?}", map);
+    map.insert("name", "tom");
+    println!("{:?}", map);
+    map.insert("name", "jerry");
+    println!("{:?}", map);
+    let name = map.get("name");
+    println!("{}",*name.unwrap());
+
+    for (key, value) in map {
+        println!("key: {:?}, value: {:?}", key, value)
     }
 }
