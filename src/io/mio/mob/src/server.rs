@@ -33,8 +33,7 @@ impl Server {
         info!("Server run loop starting...");
         loop {
             let cnt = poll.poll(&mut self.events, None)?;
-            trace!("processing events... cnt={}, len={}", cnt,self.events.len());
-
+            trace!("processing events... cnt={}, len={}", cnt,self.events.iter().count());
             for i in 0..cnt {
                 let event = self.events.get(i).ok_or_else(|| {
                     io::Error::new(ErrorKind::Other, "Failed to get event")
