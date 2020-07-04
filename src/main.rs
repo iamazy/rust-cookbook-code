@@ -4,14 +4,9 @@ mod concurrency;
 mod crypt;
 mod examples;
 mod exercises;
-mod raft;
 
 fn main() {
     main_func();
-}
-
-fn main_raft() {
-    raft::single_node::single_node();
 }
 
 fn main_func() {
