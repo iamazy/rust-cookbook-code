@@ -1,9 +1,9 @@
 use std::time::Duration;
 use crate::raft::node::Node;
 use std::collections::HashMap;
-use crate::raft::message::{Message, Request, Response, Address};
+use crate::raft::message::{Message, Request, Event, Response, Address};
 use crate::raft::log::Log;
-use crate::error::Result;
+use crate::error::{Result, Error};
 use crate::raft::state::State;
 use tokio::net::{TcpListener, TcpStream};
 use tokio::stream::StreamExt;
@@ -54,7 +54,54 @@ impl Server {
         let (tcp_in_tx, tcp_in_rx) = mpsc::unbounded_channel::<Message>();
         let (tcp_out_tx, tcp_out_rx) = mpsc::unbounded_channel::<Message>();
         let (task, tcp_receiver) = Self::tcp_receive(listener, tcp_in_tx).remote_handle();
+        tokio::spawn(task);
+        let (task, tcp_sender) = Self::tcp_send(self.node.id(), self.peers, tcp_out_rx).remote_handle();
+        tokio::spawn(task);
+        let (task, eventloop) = Self::eventloop(self.node, self.node_rx, client_rx, tcp_in_rx, tcp_out_tx)
+            .remote_handle();
+        tokio::spawn(task);
+        tokio::try_join!(tcp_receiver, tcp_sender, eventloop)?;
+        Ok(())
+    }
 
+    async fn eventloop(
+        mut node: Node,
+        mut node_rx: mpsc::UnboundedReceiver<Message>,
+        mut client_rx: mpsc::UnboundedReceiver<(Request, oneshot::Sender<Result<Response>>)>,
+        mut tcp_rx: mpsc::UnboundedReceiver<Message>,
+        tcp_tx: mpsc::UnboundedSender<Message>
+    ) -> Result<()> {
+        let mut ticker = tokio::time::interval(TICK);
+        let mut requests = HashMap::<Vec<u8>, oneshot::Sender<Result<Response>>>::new();
+        loop {
+            tokio::select! {
+                _ = ticker.tick() => node = node.tick()?,
+                Some(msg) = tcp_rx.next() => node = node.step(msg)?,
+                Some(msg) = node_rx.next() => {
+                    match msg {
+                        Message { to: Address::Peer(_), ..} => tcp_tx.send(msg)?,
+                        Message { to: Address::Peers, ..} => tcp_tx.send(msg)?,
+                        Message { to: Address::Client, event: Event::ClientResponse { id, response }, ..} => {
+                            if let Some(response_tx) = requests.remove(&id) {
+                                response_tx.send(response).map_err(|e| Error::Internal(format!("Failed to send response {:?}", e)))?;
+
+                            }
+                        }
+                        _ => return Err(Error::Internal(format!("Unexpected message {:?}",msg))),
+                    }
+                }
+                Some((request, response_tx)) = client_rx.next() => {
+                    let id = Uuid::new_v4().as_bytes().to_vec();
+                    requests.insert(id.clone(), response_tx);
+                    node = node.step(Message {
+                        from: Address::Client,
+                        to: Address::Local,
+                        term: 0,
+                        event: Event::ClientRequest{ id, request},
+                    })?;
+                }
+            }
+        }
     }
 
     /// Receives inbound message from peers via Tcp

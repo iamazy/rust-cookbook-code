@@ -1,6 +1,5 @@
 use crate::error::{Result, Error};
 use crate::storage::log;
-use serde::{Serialize, Deserialize};
 use serde_derive::{Deserialize, Serialize};
 use ::log::debug;
 use std::ops::RangeBounds;
@@ -178,10 +177,10 @@ impl Log {
         self.store.set_metadata(&Key::TermVote.encode(), Self::serialize(&(term, voted_for))?)
     }
 
-    fn serialize<V: Serialize>(value: &V) -> Result<Vec<u8>> {
+    fn serialize<V: serde::Serialize>(value: &V) -> Result<Vec<u8>> {
         Ok(bincode::serialize(value)?)
     }
-    fn deserialize<'a, V: Deserialize<'a>>(bytes: &'a [u8]) -> Result<V> {
+    fn deserialize<'a, V: serde::Deserialize<'a>>(bytes: &'a [u8]) -> Result<V> {
         Ok(bincode::deserialize(bytes)?)
     }
 }
