@@ -1,17 +1,17 @@
 use std::time::Duration;
 use crate::raft::node::Node;
 use std::collections::HashMap;
-use crate::raft::message::{Message, Request, Response};
+use crate::raft::message::{Message, Request, Response, Address};
 use crate::raft::log::Log;
 use crate::error::Result;
 use crate::raft::state::State;
 use tokio::net::{TcpListener, TcpStream};
-use tokio::stream::StreamExt as _;
+use tokio::stream::StreamExt;
 use tokio::sync::{mpsc, oneshot};
 use tokio_util::codec::{Framed, LengthDelimitedCodec};
 use uuid::Uuid;
-use tokio_serde::Framed;
-use futures::{TryStreamExt, SinkExt};
+use futures::{sink::SinkExt, FutureExt};
+use ::log::{debug, error};
 
 
 /// The duration of a Raft tick, the unit of time for e.g. heartbeats and elections
@@ -71,7 +71,7 @@ impl Server {
                     Ok(()) => debug!("Raft peer {} disconnected", peer),
                     Err(err) => error!("Raft peer {} error: {}", peer, err.to_string())
                 }
-            })
+            });
         }
         Ok(())
     }
@@ -88,6 +88,64 @@ impl Server {
             in_tx.send(message)?;
         }
         Ok(())
+    }
+
+    /// Sends outbound messages to peers via TCP
+    async fn tcp_send(
+        node_id: String,
+        peers: HashMap<String, String>,
+        mut out_rx: mpsc::UnboundedReceiver<Message>
+    ) -> Result<()> {
+        let mut peer_txs : HashMap<String, mpsc::Sender<Message>> = HashMap::new();
+        for (id, addr) in peers.into_iter() {
+            let (tx, rx) = mpsc::channel::<Message>(1000);
+            peer_txs.insert(id, tx);
+            tokio::spawn(Self::tcp_send_peer(addr, rx));
+        }
+
+        while let Some(mut message) = out_rx.next().await {
+            if message.from == Address::Local {
+                message.from = Address::Peer(node_id.clone());
+            }
+            let to = match &message.to {
+                Address::Peers => peer_txs.keys().cloned().collect(),
+                Address::Peer(peer) => vec![peer.to_string()],
+                addr => {
+                    error!("Received outbound message for non-TCP address {:?}", addr);
+                    continue;
+                }
+            };
+            for id in to {
+                match peer_txs.get_mut(&id) {
+                    Some(tx) => match tx.try_send(message.clone()) {
+                        Ok(()) => {},
+                        Err(mpsc::error::TrySendError::Full(_)) => {
+                            debug!("Full send buffer for peer {}, discarding message", id);
+                        }
+                        Err(error) => return Err(error.into())
+                    }
+                    None => error!("Received outbound message for unknown peer {}", id)
+                }
+            }
+        }
+        Ok(())
+    }
+
+    async fn tcp_send_peer(addr: String, mut out_rx: mpsc::Receiver<Message>) {
+        loop {
+            match TcpStream::connect(&addr).await {
+                Ok(socket) => {
+                    debug!("Connected to Raft peer {}", addr);
+                    match Self::tcp_send_peer_session(socket, &mut out_rx).await {
+                        Ok(()) => break,
+                        Err(err) => error!("Failed to sending to Raft peer {}: {}", addr, err)
+                    }
+                }
+                Err(err) => error!("Failed to connect to Raft peer {}: {}", addr, err)
+            }
+            tokio::time::delay_for(Duration::from_millis(1000)).await;
+        }
+        debug!("Disconnected from Raft peer {}", addr);
     }
 
     async fn tcp_send_peer_session(

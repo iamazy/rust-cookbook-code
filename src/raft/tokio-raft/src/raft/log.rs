@@ -1,6 +1,7 @@
 use crate::error::{Result, Error};
 use crate::storage::log;
-use serde::{Deserialize, Serialize};
+use serde::{Serialize, Deserialize};
+use serde_derive::{Deserialize, Serialize};
 use ::log::debug;
 use std::ops::RangeBounds;
 use crate::storage::log::Range;

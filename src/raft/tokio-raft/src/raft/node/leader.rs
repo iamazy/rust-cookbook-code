@@ -1,9 +1,10 @@
 use std::collections::HashMap;
-use crate::raft::node::{RoleNode, Node};
+use crate::raft::node::{RoleNode, Node, Status, HEARTBEAT_INTERVAL};
 use crate::raft::node::follower::Follower;
 use crate::error::{Result, Error};
 use crate::raft::state::Instruction;
 use crate::raft::message::{Address, Event, Message, Request, Response};
+use ::log::{debug, info, warn};
 
 /// A leader serves requests and replicates the log to followers
 #[derive(Debug)]
@@ -199,6 +200,24 @@ impl RoleNode<Leader> {
 
             Event::Heartbeat { .. } | Event::ReplicateEntries { .. } => {
                 warn!("Received unexpected message {:?}", msg)
+            }
+        }
+        Ok(self.into())
+    }
+
+    /// Processes a logical clock tick.
+    pub fn tick(mut self) -> Result<Node> {
+        if !self.peers.is_empty() {
+            self.role.heartbeat_ticks += 1;
+            if self.role.heartbeat_ticks >= HEARTBEAT_INTERVAL {
+                self.role.heartbeat_ticks = 0;
+                self.send(
+                    Address::Peers,
+                    Event::Heartbeat {
+                        commit_index: self.log.commit_index,
+                        commit_term: self.log.commit_term,
+                    },
+                )?;
             }
         }
         Ok(self.into())

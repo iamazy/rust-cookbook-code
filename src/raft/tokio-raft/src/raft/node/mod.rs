@@ -11,6 +11,8 @@ use crate::raft::node::leader::Leader;
 use crate::raft::message::{Message, Address, Event};
 use crate::error::{Result, Error};
 use crate::raft::state::{State, Driver, Instruction};
+use ::log::{debug, info};
+use serde_derive::{Deserialize, Serialize};
 
 
 /// The interval between leader heartbeats, in ticks
@@ -70,7 +72,7 @@ impl Node {
         let node = RoleNode {
             id: id.to_owned(),
             peers,
-            terms,
+            term,
             log,
             node_tx,
             state_tx,

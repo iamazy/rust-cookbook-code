@@ -4,6 +4,7 @@ use crate::raft::node::follower::Follower;
 use crate::error::Result;
 use crate::raft::message::{Address, Event, Message, Response};
 use crate::raft::node::leader::Leader;
+use ::log::{debug, info, warn};
 
 /// A candidate is campaigning to become a leader
 #[derive(Debug)]

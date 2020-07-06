@@ -4,7 +4,6 @@ use serde::export::Formatter;
 use crate::error::{Result, Error};
 use crate::storage::log::{Store, Range};
 use std::ops::Bound;
-use bytes::Buf;
 
 /// A in-memory log store
 pub struct Memory {

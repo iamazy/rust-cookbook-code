@@ -3,7 +3,9 @@ use crate::raft::log::{Entry, Scan};
 use crate::raft::message::{Address, Message, Event, Response};
 use crate::raft::node::Status;
 use std::collections::{HashSet, HashMap, BTreeMap};
-use ::log::debug;
+use ::log::{debug, error};
+use tokio::sync::mpsc;
+use tokio::stream::StreamExt as _;
 
 /// A Raft-managed state machine
 pub trait State: Send {

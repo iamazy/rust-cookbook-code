@@ -36,7 +36,7 @@ pub trait Store: Display + Sync + Send {
     fn get_metadata(&self, key: &[u8]) -> Result<Option<Vec<u8>>>;
 
     /// Set a metadata value
-    fn set_metadata(&self, key: &[u8], value: Vec<u8>) -> Result<()>;
+    fn set_metadata(&mut self, key: &[u8], value: Vec<u8>) -> Result<()>;
 
     /// Returns true if the log has no entries
     fn is_empty(&self) -> bool {

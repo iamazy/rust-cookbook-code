@@ -4,6 +4,7 @@ use crate::raft::node::{ELECTION_TIMEOUT_MIN, ELECTION_TIMEOUT_MAX, RoleNode, No
 use crate::raft::node::candidate::Candidate;
 use crate::raft::message::{Address, Event, Message, Response};
 use crate::raft::state::Instruction;
+use ::log::{debug, info, warn};
 
 /// A follower replicates state from a leader
 #[derive(Debug)]

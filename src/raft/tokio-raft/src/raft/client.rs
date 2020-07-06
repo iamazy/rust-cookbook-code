@@ -14,7 +14,9 @@ impl Client {
     pub fn new(
         request_tx: mpsc::UnboundedSender<(Request, oneshot::Sender<Result<Response>>)>,
     ) -> Self {
-        request_tx
+        Self {
+            request_tx
+        }
     }
 
     /// Executes a request against the Raft cluster

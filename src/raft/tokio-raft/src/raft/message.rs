@@ -1,6 +1,7 @@
 use crate::raft::log::Entry;
 use crate::error::Result;
 use crate::raft::node::Status;
+use serde_derive::{Deserialize, Serialize};
 
 /// A message address
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
