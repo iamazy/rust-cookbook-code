@@ -37,7 +37,7 @@ impl<'a, T> Parallel<'a, T> {
     pub fn each<A, I, F>(mut self, iter: I, f: F) -> Parallel<'a, T>
     where
         I: IntoIterator<Item = A>,
-        F: FnOnce() -> T + Clone + Send + 'a,
+        F: FnOnce(A) -> T + Clone + Send + 'a,
         A: Send + 'a,
         T: Send + 'a,
     {
@@ -84,7 +84,7 @@ impl<'a, T> Parallel<'a, T> {
 
             // Erase the `'a` lifetime
             let f: Box<dyn FnOnce() + Send + 'a> = Box::new(f);
-            let f: Box<dyn FnOnce() + Send + 'a> = unsafe {
+            let f: Box<dyn FnOnce() + Send + 'static> = unsafe {
                 mem::transmute(f)
             };
 
@@ -144,5 +144,31 @@ impl Drop for NoPanic {
         if thread::panicking() {
             process::abort();
         }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use crate::Parallel;
+
+    fn par_sum(v: &[i32]) -> i32 {
+        const THRESHOLD: usize = 100;
+        if v.len() <= THRESHOLD {
+            v.iter().copied().sum()
+        } else {
+            let half = (v.len() + 1) / 2;
+            let sums = Parallel::new().each(v.chunks(half), par_sum).run();
+            sums.into_iter().sum()
+        }
+    }
+
+    #[test]
+    fn test_parallel() {
+        let mut v = Vec::new();
+        for i in 0..10_000 {
+            v.push(i);
+        }
+        let sum = dbg!(par_sum(&v));
+        assert_eq!(sum, v.into_iter().sum());
     }
 }
