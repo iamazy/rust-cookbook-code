@@ -17,4 +17,4 @@
 [rust小宏书](http://blog.luxlyu.com/tlborm-chinese/book/index.html)  
 
 ## Projects
-[toydb](https://github.com/erikgrinaker/toydb) keyword: **[Raft Consensus Algorithm](https://raft.github.io/)**，**Distributed SQL database**  
+[toydb](https://github.com/erikgrinaker/toydb)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**Distributed SQL database**]  
