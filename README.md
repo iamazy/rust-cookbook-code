@@ -15,7 +15,8 @@
 [too many list](https://github.com/rust-unofficial/too-many-lists)  
 [termion](https://github.com/redox-os/termion)  
 [rust小宏书](http://blog.luxlyu.com/tlborm-chinese/book/index.html)  
-[easy_rust](https://github.com/Dhghomon/easy_rust)
+[easy_rust](https://github.com/Dhghomon/easy_rust)  
+[mini-redis](https://tokio.rs/tokio/tutorial)  
 
 ## Projects
 [toydb](https://github.com/erikgrinaker/toydb)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**Distributed SQL database**]  
