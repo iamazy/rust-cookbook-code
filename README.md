@@ -17,6 +17,7 @@
 [rust小宏书](http://blog.luxlyu.com/tlborm-chinese/book/index.html)  
 [easy_rust](https://github.com/Dhghomon/easy_rust)  
 [mini-redis](https://tokio.rs/tokio/tutorial)  
+[books-futures-explained](https://github.com/cfsamson/books-futures-explained)  
 
 ## Projects
 [toydb](https://github.com/erikgrinaker/toydb)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**Distributed SQL database**]  
