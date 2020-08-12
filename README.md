@@ -19,6 +19,7 @@
 [mini-redis](https://tokio.rs/tokio/tutorial)  
 [books-futures-explained](https://github.com/cfsamson/books-futures-explained)  
 [rust-embedded-book](https://rust-embedded.github.io/book/)
+[game-engine:bevy](https://github.com/bevyengine/bevy)
 
 ## Projects
 [toydb](https://github.com/erikgrinaker/toydb)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**Distributed SQL database**]  
