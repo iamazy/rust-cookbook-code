@@ -18,7 +18,7 @@
 [easy_rust](https://github.com/Dhghomon/easy_rust)  
 [mini-redis](https://tokio.rs/tokio/tutorial)  
 [books-futures-explained](https://github.com/cfsamson/books-futures-explained)  
-[rust-embedded-book](https://rust-embedded.github.io/book/)
+[rust-embedded-book](https://rust-embedded.github.io/book/)  
 [game-engine:bevy](https://github.com/bevyengine/bevy)
 
 ## Projects
