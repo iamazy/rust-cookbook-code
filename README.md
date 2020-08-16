@@ -8,6 +8,7 @@
 [rust-learning](https://github.com/ctjhoa/rust-learning)  
 [awesome-rust](https://github.com/rust-unofficial/awesome-rust)  
 [async-book](https://github.com/rust-lang/async-book)  
+[async-std](https://book.async.rs/introduction.html)  
 [rust-reference](https://github.com/rust-lang/reference)  
 [rust-by-example](https://github.com/rust-lang/rust-by-example)  
 [write a os in rust](https://os.phil-opp.com/)  
