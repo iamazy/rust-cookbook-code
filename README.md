@@ -23,7 +23,7 @@
 [game-engine:bevy](https://github.com/bevyengine/bevy)  
 [rustwasm](https://github.com/rustwasm/book)  
 [nomicon](https://doc.rust-lang.org/nomicon/index.html), [nomicon-cn](https://learnku.com/docs/nomicon/2018)  
-[learnKu](https://learnku.com/)   
+[learnKu](https://learnku.com/)
 
 ## Projects
 [toydb](https://github.com/erikgrinaker/toydb)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**Distributed SQL database**]  
