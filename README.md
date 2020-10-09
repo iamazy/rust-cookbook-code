@@ -15,7 +15,7 @@
 [rust死灵书](https://doc.rust-lang.org/nomicon/index.html)  
 [too many list](https://github.com/rust-unofficial/too-many-lists)  
 [termion](https://github.com/redox-os/termion)  
-[rust小宏书](http://blog.luxlyu.com/tlborm-chinese/book/index.html)  
+[rust小宏书](https://github.com/DanielKeep/tlborm/)  
 [easy_rust](https://github.com/Dhghomon/easy_rust)  
 [mini-redis](https://tokio.rs/tokio/tutorial)  
 [books-futures-explained](https://github.com/cfsamson/books-futures-explained)  
