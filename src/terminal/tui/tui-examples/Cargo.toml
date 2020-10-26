@@ -1,5 +1,5 @@
 [package]
-name = "too_many_lists"
+name = "tui-examples"
 version = "0.1.0"
 authors = ["iamazy <1448588084@qq.com>"]
 edition = "2018"
@@ -7,3 +7,6 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+tui="0.10"
+termion="1"
+rand="0.7"
