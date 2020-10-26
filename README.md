@@ -15,14 +15,15 @@
 [rust死灵书](https://doc.rust-lang.org/nomicon/index.html)  
 [too many list](https://github.com/rust-unofficial/too-many-lists)  
 [termion](https://github.com/redox-os/termion)  
-[rust小宏书](http://blog.luxlyu.com/tlborm-chinese/book/index.html)  
+[rust小宏书](https://github.com/DanielKeep/tlborm/)  
 [easy_rust](https://github.com/Dhghomon/easy_rust)  
 [mini-redis](https://tokio.rs/tokio/tutorial)  
 [books-futures-explained](https://github.com/cfsamson/books-futures-explained)  
 [rust-embedded-book](https://rust-embedded.github.io/book/)  
 [game-engine:bevy](https://github.com/bevyengine/bevy)  
 [rustwasm](https://github.com/rustwasm/book)  
-[nomicon](https://doc.rust-lang.org/nomicon/index.html), [nomicon-cn](https://learnku.com/docs/nomicon/2018)   
+[nomicon](https://doc.rust-lang.org/nomicon/index.html), [nomicon-cn](https://learnku.com/docs/nomicon/2018)  
+[learnKu](https://learnku.com/)
 
 ## Projects
 [toydb](https://github.com/erikgrinaker/toydb)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**Distributed SQL database**]  
