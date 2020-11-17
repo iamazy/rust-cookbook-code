@@ -25,6 +25,7 @@
 [nomicon](https://doc.rust-lang.org/nomicon/index.html), [nomicon-cn](https://learnku.com/docs/nomicon/2018)  
 [learnKu](https://learnku.com/)  
 [rust-api-guidelines](https://github.com/rust-lang/api-guidelines)  
+[LLVM tutorial in Rust language](https://github.com/jauhien/iron-kaleidoscope)  
 
 
 ## Projects
