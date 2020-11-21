@@ -141,6 +141,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "five_node"
+version = "0.1.0"
+dependencies = [
+ "protobuf",
+ "raft",
+ "regex",
+ "slog",
+ "slog-async",
+ "slog-envlogger",
+ "slog-stdlog",
+ "slog-term",
+]
+
+[[package]]
 name = "fxhash"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -401,18 +415,6 @@ dependencies = [
  "blake2b_simd",
  "constant_time_eq",
  "crossbeam-utils",
-]
-
-[[package]]
-name = "single_node"
-version = "0.1.0"
-dependencies = [
- "raft",
- "slog",
- "slog-async",
- "slog-envlogger",
- "slog-stdlog",
- "slog-term",
 ]
 
 [[package]]

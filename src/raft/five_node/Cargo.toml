@@ -1,5 +1,5 @@
 [package]
-name = "single_node"
+name = "five_node"
 version = "0.1.0"
 authors = ["iamazy <1448588084@qq.com>"]
 edition = "2018"
@@ -13,6 +13,8 @@ slog-envlogger = "2.2.0"
 slog-stdlog = "4"
 slog-async="*"
 raft = "0.6.0-alpha"
+protobuf="2"
+regex="1"
 
 [patch.crates-io]
 raft = { git = "https://github.com/tikv/raft-rs", branch = "master", default-features = false }
