@@ -10,6 +10,10 @@ edition = "2018"
 name = "helloworld-server"
 path = "src/helloworld/server.rs"
 
+[[bin]] # Bin to run the HelloWorld gRPC server
+name = "helloworld-blocking-server"
+path = "src/helloworld/server_blocking.rs"
+
 [[bin]] # Bin to run the HelloWorld gRPC client
 name = "helloworld-client"
 path = "src/helloworld/client.rs"
