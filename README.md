@@ -27,6 +27,7 @@
 [rust-api-guidelines](https://github.com/rust-lang/api-guidelines)  
 [LLVM tutorial in Rust language](https://github.com/jauhien/iron-kaleidoscope)  
 [The Rust Performance Book](https://github.com/nnethercote/perf-book)  
+[db_tutorial](https://cstack.github.io/db_tutorial/)
 
 
 ## Projects
