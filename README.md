@@ -28,7 +28,11 @@
 [LLVM tutorial in Rust language](https://github.com/jauhien/iron-kaleidoscope)  
 [The Rust Performance Book](https://github.com/nnethercote/perf-book)  
 [db_tutorial](https://cstack.github.io/db_tutorial/)  
-[rvemu-for-book](https://github.com/d0iasm/rvemu-for-book)
+[rvemu-for-book](https://github.com/d0iasm/rvemu-for-book)  
+[lifetimes-in-rust](https://hashrust.com/blog/lifetimes-in-rust/)  
+[rust-blog](https://github.com/pretzelhammer/rust-blog)  
+[this-week-in-rust](https://github.com/rust-lang/this-week-in-rust)  
+[blog.rust-lang.org](https://github.com/rust-lang/blog.rust-lang.org)
 
 
 ## Projects
