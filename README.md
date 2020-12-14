@@ -36,6 +36,6 @@
 
 
 ## Projects
-[toydb](https://github.com/erikgrinaker/toydb)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**Distributed SQL database**]
-[Toshi](https://github.com/toshi-search/Toshi)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**A full-text search engine**]
-[bayard](https://github.com/bayard-search/bayard)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**A full-text search engine**]
+[toydb](https://github.com/erikgrinaker/toydb)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**Distributed SQL database**]  
+[Toshi](https://github.com/toshi-search/Toshi)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**A full-text search engine**]  
+[bayard](https://github.com/bayard-search/bayard)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**，**A full-text search engine**]  
