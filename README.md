@@ -32,7 +32,8 @@
 [lifetimes-in-rust](https://hashrust.com/blog/lifetimes-in-rust/)  
 [rust-blog](https://github.com/pretzelhammer/rust-blog)  
 [this-week-in-rust](https://github.com/rust-lang/this-week-in-rust)  
-[blog.rust-lang.org](https://github.com/rust-lang/blog.rust-lang.org)
+[blog.rust-lang.org](https://github.com/rust-lang/blog.rust-lang.org)  
+[explaine.rs](https://github.com/jrvidal/explaine.rs)
 
 
 ## Projects
