@@ -41,6 +41,6 @@
 [Toshi](https://github.com/toshi-search/Toshi)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**, **A full-text search engine**]  
 [bayard](https://github.com/bayard-search/bayard)  -> [**[Raft Consensus Algorithm](https://raft.github.io/)**, **A full-text search engine**]
 
-> Ocean Vista: Gossip-Based Visibility Control for Speedy Geo-Distributed Transactions  
+> Ocean Vista: [Gossip-Based Visibility Control for Speedy Geo-Distributed Transactions](http://charap.co/ocean-vista-gossip-based-visibility-control-for-speedy-geo-distributed-transactions/)  
 
 [clepsydra](https://github.com/graydon/clepsydra) -> [**Ocean Vista**, **Distributed database**] 
