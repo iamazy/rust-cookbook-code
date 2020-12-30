@@ -43,4 +43,5 @@
 
 > Ocean Vista: [Gossip-Based Visibility Control for Speedy Geo-Distributed Transactions](http://charap.co/ocean-vista-gossip-based-visibility-control-for-speedy-geo-distributed-transactions/)  
 
-[clepsydra](https://github.com/graydon/clepsydra) -> [**Ocean Vista**, **Distributed database**] 
+[clepsydra](https://github.com/graydon/clepsydra) -> [**Ocean Vista**, **Distributed database**]  
+[stellar](https://github.com/stellar/stellar-core) -> [**Stellar Consensus Algorithm**, **Distributed database**]  
