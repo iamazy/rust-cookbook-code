@@ -34,7 +34,8 @@
 [this-week-in-rust](https://github.com/rust-lang/this-week-in-rust)  
 [blog.rust-lang.org](https://github.com/rust-lang/blog.rust-lang.org)  
 [explaine.rs](https://github.com/jrvidal/explaine.rs)  
-[Brainfuck JIT 虚拟机教程: bfjit](https://github.com/Nugine/bfjit)
+[Brainfuck JIT 虚拟机教程: bfjit](https://github.com/Nugine/bfjit)  
+[assemblytutorials](https://github.com/DGivney/assemblytutorials)
 
 
 ## Projects
