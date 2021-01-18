@@ -123,7 +123,7 @@ fn root<'a, E: ParseError<&'a str> + ContextError<&'a str>>(
 }
 
 fn main() {
-    let data = "{\"name\":[\"iamazy\",1,falsE,{\"age\":1}]}";
+    let data = "{\"name\":[\"iamazy\",1,false,{\"age\":1}]}";
 
     println!(
         "will try to parse valid JSON data: \n\n*************\n{}\n*************\n",
