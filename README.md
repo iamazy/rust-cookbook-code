@@ -36,6 +36,7 @@
 [explaine.rs](https://github.com/jrvidal/explaine.rs)  
 [Brainfuck JIT 虚拟机教程: bfjit](https://github.com/Nugine/bfjit)  
 [assemblytutorials](https://github.com/DGivney/assemblytutorials)
+[tokio-book](https://github.com/tokio-rs/book)
 
 
 ## Projects
