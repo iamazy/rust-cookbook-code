@@ -35,7 +35,7 @@
 [blog.rust-lang.org](https://github.com/rust-lang/blog.rust-lang.org)  
 [explaine.rs](https://github.com/jrvidal/explaine.rs)  
 [Brainfuck JIT 虚拟机教程: bfjit](https://github.com/Nugine/bfjit)  
-[assemblytutorials](https://github.com/DGivney/assemblytutorials)
+[assemblytutorials](https://github.com/DGivney/assemblytutorials)  
 [tokio-book](https://github.com/tokio-rs/book)
 
 
