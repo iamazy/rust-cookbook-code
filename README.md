@@ -38,7 +38,8 @@
 [assemblytutorials](https://github.com/DGivney/assemblytutorials)  
 [tokio-book](https://github.com/tokio-rs/book)  
 [rust_magazine_2021](https://github.com/RustMagazine/rust_magazine_2021)  
-[rustc-dev-guide-zh](https://github.com/RustcRustc/rustc-dev-guide-zh)
+[rustc-dev-guide-zh](https://github.com/RustcRustc/rustc-dev-guide-zh)  
+[Rust Frequently Asked Questions](https://github.com/dtolnay/rust-faq)  
 
 
 ## Projects
